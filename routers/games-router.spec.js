@@ -113,4 +113,6 @@ describe("games-router.js", () => {
       expect(response.status).toBe(422);
     });
   });
+
+  describe("delete /games/:id", () => {});
 });

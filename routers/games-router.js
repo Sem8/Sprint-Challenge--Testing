@@ -17,7 +17,7 @@ gamesRouter.get("/", (req, res) => {
 });
 
 gamesRouter.get("/:id", (req, res) => {
-  const { id } = req.params;  
+  const { id } = req.params;
 
   gamesdb("games")
     .where({ id })
@@ -53,6 +53,23 @@ gamesRouter.post("/", async (req, res) => {
         error: `There was an error while saving game to the database: ${error}`
       });
     }
+  }
+});
+
+gamesRouter.delete("/:id", async (req, res) => {
+  try {
+    const count = await gamesdb("games")
+      .where({ id: req.params.id })
+      .del();
+    if (count > 0) {
+      res.status(204).end();
+    } else {
+      res.status(404).json({ message: `Game not found` });
+    }
+  } catch (error) {
+    res.status(500).json({
+      error: `Error occurred while deleting this game: ${error}`
+    });
   }
 });
 
