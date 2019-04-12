@@ -3,11 +3,11 @@ const gameServer = require("../api/server.js");
 const gamesdb = require("../database/dbConfig.js");
 
 describe("games-router.js", () => {
-  afterEach(async () => {
-    await gamesdb("games").truncate();
-  });
+  //   afterEach(async () => {
+  //     await gamesdb("games").truncate();
+  //   });
 
-  describe.skip("GET /", () => {
+  describe("GET /", () => {
     it("should respond with 200 OK", () => {
       return request(gameServer)
         .get("/games")
@@ -40,6 +40,23 @@ describe("games-router.js", () => {
         });
     });
 
+    describe("get /games/:id", () => {
+      it("return a single game if it exits", async () => {
+        let response = await request(gameServer).get("/games/1");
+        expect(response.body).toEqual({
+          id: 1,
+          title: "Pacman",
+          genre: "Arcade",
+          releaseYear: 1980
+        });
+      });
+
+      it("should respond with 404 status", async () => {
+        let response = await request(gameServer).get("/games/2");
+        expect(response.status).toBe(404);
+      });
+    });
+
     it.skip("should return empty array", () => {
       let game = [];
 
@@ -51,7 +68,7 @@ describe("games-router.js", () => {
     });
   });
 
-  describe("post(/games)", () => {
+  describe.skip("post(/games)", () => {
     it("should return status 201", async () => {
       const testGame = {
         title: "Mario",
