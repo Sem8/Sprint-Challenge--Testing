@@ -1,0 +1,16 @@
+1. In Jest, what are the differences between describe() and it() globals, and what are good uses for them?
+
+1an. The describe() breaks your test suite into components and creates a block that groups together several related tests. The it() is where you
+perform individual tests
+
+
+2. What is the point of Test Driven Development? What do you think about this approach?
+
+2an. Purpose of test driven development is to generate well thought out, carefully planned out code. It helps to build testable code with tests that 
+enable refactoring. I'm good with test driven development, but I prefer testing on postman rather than with writing tests because postman is so much
+faster and easier. 
+
+
+3. Mention three types of automated tests.
+
+3an. Three types of automated tests include 1) UI regression test, 2) Unit test and 3) Integration test.
