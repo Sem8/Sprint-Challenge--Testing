@@ -1,6 +1,7 @@
 const gamesRouter = require('express').Router();
 
 const gamesdb = require('../database/dbConfig.js');
+const Games = require('../helpers/games-model.js');
 
 gamesRouter.get('/', (req, res) => {
     gamesdb('games').then(allGames => {
@@ -12,6 +13,24 @@ gamesRouter.get('/', (req, res) => {
     });
 
     // res.send('Welcome to your Games center');
+});
+
+gamesRouter.post('/', async (req, res) => {
+    const {title, genre, releaseYear } = req.body;
+    if(!title && !genre ) {
+        res.status(422).json({ message: `Bad request, submit all requried fields`});
+    } else {
+        try {
+            const newGame = req.body;
+            Games.addGame(newGame).then(game => {
+                res.status(201).json(game);
+            });
+        } catch (error) {
+            res.status(500).json({
+                error: `There was an error while saving game to the database: ${error}`
+            });
+        };
+    };
 });
 
 
