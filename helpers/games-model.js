@@ -1,19 +1,23 @@
-const gamesdb = require('../database/dbConfig.js');
+const gamesdb = require("../database/dbConfig.js");
 
 module.exports = {
-    getGames,
-    getOneGame,
-    addGame,
+  getGames,
+  getOneGame,
+  addGame
 };
 
 function getGames() {
-    return gamesdb('games');
-};
+  return gamesdb("games");
+}
 
 function getOneGame(id) {
-    return gamesdb('games').where({ id }).first();
-};
+  return gamesdb("games")
+    .where({ id })
+    .first();
+}
 
 function addGame(game) {
-    return gamesdb('games').insert(game).then(([id]) => this.getOneGame(id));
+  return gamesdb("games")
+    .insert(game)
+    .then(([id]) => this.getGames(id));
 }
